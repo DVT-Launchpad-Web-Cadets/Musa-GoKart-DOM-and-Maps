@@ -1,0 +1,72 @@
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: whitesmoke;
+  font-family: sans-serif;
+}
+
+.home-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-container{
+  background-image: url('../../assets/images/Go-Kart_Logo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.app-description{
+  width: 200px;
+  text-align: center;
+}
+
+.highlighted-text{
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  span{
+    color:#ed3240;
+  }
+}
+
+.sub-text{
+  font-size: 0.7rem;
+  color: rgb(142, 142, 142);
+}
+
+a{
+  text-decoration: none;
+}
+
+.home-btn-container{
+  width: 200px;
+  height: fit-content;
+
+}
+
+#home-btn{
+  height: 2rem;
+  width: 200px;
+  border-radius: 0.3rem;
+  border: none;
+  background-color: #ed3240;
+  color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+

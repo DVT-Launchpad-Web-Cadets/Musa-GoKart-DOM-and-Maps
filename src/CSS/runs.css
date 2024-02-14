@@ -1,0 +1,104 @@
+.header{
+    /* background-color: gray; */
+    height: 40px;
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    padding: 8px 13px;
+    span{
+        color: #ed3240;
+    }
+
+}
+
+.page-elements{
+    margin: 20px 15px;
+    height: 100%;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.page-title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+
+    div{
+        height: 4.5rem;
+        width: 100%;
+        background-color: lightgray;
+        margin: 0;
+        border-radius: 1rem;
+    }
+
+    .main-card-content{
+        margin: 0 8px;
+        width: fit-content;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .run-item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .driver-name{
+        color: black;
+        height: fit-content;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .track-name{
+        margin: 0;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed3240;
+    }
+
+    .card-tail{
+        margin: 0 8px;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-end;
+
+        span{
+            width: fit-content;
+            color: green;
+            font-size: 2rem;
+        }
+
+        .run-date{
+            font-weight: bold;
+        }
+    }
+
+    
+}
+
