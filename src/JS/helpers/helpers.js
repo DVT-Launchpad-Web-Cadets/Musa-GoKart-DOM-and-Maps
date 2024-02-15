@@ -10,8 +10,6 @@ export function changeDateFormat(dateString){
     let day = dateSplit[0];
     let monthIndex = Number(dateSplit[1]).toString();
     let year = dateSplit[2];
-
-    console.log(monthIndex)
     
     return  `${day} ${monthNames[monthIndex -1]} ${year}`;
 }

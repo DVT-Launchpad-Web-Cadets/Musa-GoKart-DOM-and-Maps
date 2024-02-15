@@ -15,7 +15,6 @@ function getAllRuns(res){
         getAllRunsCall(
             res[0],
             (res) => {
-                console.log(res);
                 addRunsToDom(res);
             },
             (err) => {

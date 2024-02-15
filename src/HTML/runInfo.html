@@ -16,6 +16,8 @@
      <link 
     href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
     rel="stylesheet"  type='text/css'>
+    <script src="../JS/services/runInfo_service.js" type="module"></script>
+    <script src="../JS/services/dom_manipulation.js" type="module"></script>
     <title>Document</title>
 </head>
 <body>
@@ -23,34 +25,9 @@
         <span>Zoom</span>Finder
     </div>
     <div class="info-page-elements">
-        <div class="run-page-title">
-            <span>Nadine</span>
-            <select name="" id="">
-                <option value="">Lap 1</option>
-                <option value="">Lap 2</option>
-                <option value="">Lap 3</option>
-                <option value="">Lap 4</option>
-                <option value="">Lap 5</option>
-                <option value="">Lap 6</option>
-            </select>
-        </div>
+        <div class="run-page-title"></div>
         <div id="map"></div>
-        <div class="lap-info">
-            <div class="lap-detail lap-time">
-                <span>
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    Lap time:
-                </span>
-                1:20:34.567
-            </div>
-            <div class="lap-detail avg-speed">
-                <span>
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    Avg Speed:
-                </span>
-                100kph
-            </div>
-        </div>
+        <div class="lap-info"></div>
     </div>
 </body>
 </html>
