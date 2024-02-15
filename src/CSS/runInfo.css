@@ -1,0 +1,40 @@
+.info-page-elements{
+    margin: 20px 15px;
+    height: 100%;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+.run-page-title{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    span{
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+}
+#map{
+    height: 180px;
+    width: 100%;
+}
+
+.lap-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.lap-detail{
+    height: 3rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
