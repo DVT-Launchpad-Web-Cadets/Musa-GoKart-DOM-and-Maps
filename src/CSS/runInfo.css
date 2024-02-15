@@ -33,6 +33,7 @@
 
 .lap-detail{
     height: 3rem;
+    width: 100%;
     font-weight: 600;
     display: flex;
     flex-direction: column;
