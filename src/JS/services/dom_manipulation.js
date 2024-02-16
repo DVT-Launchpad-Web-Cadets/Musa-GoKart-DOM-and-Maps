@@ -80,3 +80,14 @@ export function addLapInfo(lapDetails){
 export function getLapNumber(){
     return 1;
 }
+
+export function stopSpinner(){
+    const loader = document.querySelector('.loader');
+    loader.style.display = 'none';
+
+    const page = document.querySelector('.page-elements');
+    if(page){
+        page.style.justifyContent = "flex-start";
+    }
+    
+}

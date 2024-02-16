@@ -1,4 +1,5 @@
 import API_BASE_URL from '../api/api_Base_Url'
+import { stopSpinner } from './dom_manipulation';
 
 export function getFileName (callBack, errorCallBack){
     fetch(`${API_BASE_URL}/runs`)
@@ -7,7 +8,7 @@ export function getFileName (callBack, errorCallBack){
         callBack(responseJson);
     })
     .catch(err => errorCallBack(err))
-    .finally(console.log("done"))
+    .finally()
 }
 
 export function getAllRunsCall(filename,callBack, errorCallBack){
@@ -17,7 +18,7 @@ export function getAllRunsCall(filename,callBack, errorCallBack){
         callBack(responseJson);
     })
     .catch(err => console.error(err))
-    .finally(console.log('done'))
+    .finally(stopSpinner())
 }
 
 export function getLapInfoCall(filename, lap, callBack, errorCallBack){
@@ -28,5 +29,5 @@ export function getLapInfoCall(filename, lap, callBack, errorCallBack){
         callBack(responseJson);
     })
     .catch(err => errorCallBack(err))
-    .finally(console.log('done'))
+    .finally(stopSpinner())
 }
