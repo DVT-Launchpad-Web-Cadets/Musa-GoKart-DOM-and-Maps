@@ -1,22 +1,15 @@
-import { getAllRunsCall, getFileName } from "./api_calls";
-import { addHeaderInfo } from "./dom_manipulation";
-
-getFileName(
-    (res) => {
-        getAllRuns(res) 
-    },
-    (err) => {
-        console.log(err);
-    }
-)
+import { drawLap } from "../map/runInfoMap";
+import { getAllRunsCall, getFileName, getLapInfoCall } from "./api_calls";
+import { addHeaderInfo, getLapNumber } from "./dom_manipulation";
 
 function getAllRuns(res){
     if(res?.[0]){
         getAllRunsCall(
             res[0],
             (res) => {
-                console.log('res',res);
                 addHeaderInfo(res);
+
+                
             },
             (err) => {
                 console.log(err);
@@ -24,3 +17,34 @@ function getAllRuns(res){
         )
     }
 }
+
+function getLapInfo(filename, lap){
+    getLapInfoCall(
+        filename,
+        lap,
+        (res) => {
+            console.log('res',res.dataSet);
+            if(res?.dataSet?.[0]){
+                drawLap(res.dataSet)
+            }
+        },
+        (err) => {
+            console.error();
+        }
+    )
+}
+
+getFileName(
+    (res) => {
+        getAllRuns(res);
+        getLapInfo(res[0],getLapNumber());
+    },
+    (err) => {
+        console.log(err);
+    }
+)
+
+
+
+
+

@@ -76,3 +76,7 @@ export function addLapInfo(lapDetails){
             ${avg}units
         </div>`
 }
+
+export function getLapNumber(){
+    return 1;
+}
