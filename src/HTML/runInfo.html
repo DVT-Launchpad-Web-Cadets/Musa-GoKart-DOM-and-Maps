@@ -16,17 +16,39 @@
      <link 
     href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
     rel="stylesheet"  type='text/css'>
-    <script src="../JS/services/runInfo_service.js" type="module"></script>
-    <script src="../JS/services/dom_manipulation.js" type="module"></script>
+    <script src="../JS/services/runInfo_service.js" type="module" defer></script>
+    <script src="../JS/services/dom_manipulation.js" type="module" defer></script>
+    <!-- <script type="module">
+        import { getFileName} from "../JS/services/api_calls";
+
+        function handleChange() {
+            console.log('change')
+            getFileName(
+                (res) => {
+                    getAllRuns(res);
+                    getLapInfo(res[0],getLapNumber());
+                },
+                (err) => {
+                    console.log(err);
+                }
+            )
+        }
+    </script> -->
     <title>Document</title>
 </head>
 <body>
+    
     <div class="header">
         <span>Zoom</span>Finder
     </div>
     <div class="info-page-elements">
         <div class="loader"></div>
-        <div class="run-page-title"></div>
+        <div class="run-page-title">
+            <span id="driver"></span>
+            <select name="mySelect" id="selector"></select>
+            <button>Submit</button>
+        </div>
+        
         <div id="map"></div>
         <div class="lap-info"></div>
     </div>

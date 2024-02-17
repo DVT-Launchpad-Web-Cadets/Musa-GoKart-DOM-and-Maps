@@ -1,4 +1,5 @@
 export function drawLap(lapDetails){
+    console.log('draw')
 
     // TODO: Fix the latlongs
     

@@ -1,4 +1,6 @@
 import {changeDateFormat} from '../helpers/helpers'
+import { getFileName} from "./api_calls";
+import { getAllRuns, getLapInfo, getLapRun } from './runInfo_service';
 
 export function addRunsToDom(res){
     const runList = document.querySelector('.run-list');
@@ -30,28 +32,32 @@ export function addHeaderInfo(res){
     const header = document.querySelector('.run-page-title');
 
     if(res?.lapSummaries?.[0] && res.driver){
-        const name = document.createElement('span');
+        console.log('inside')
+        const name = document.querySelector('#driver');
         name.innerText = res.driver;
-        header.appendChild(name);
 
-        const select = document.createElement('select');
-        // const selectValueAtrr = document.createAttribute('onSele')
-        // select.setAttribute()
+        document.querySelector('button').addEventListener('click', handleChange)
+        // const form = document.createElement('form');
+        // const actionAtr = document.createAttribute('action');
+        // actionAtr.value = ''
+
+        const select = document.querySelector('select');
+        // const onChange = document.createAttribute('onchange');
+        // onChange. = 'handleChange()';
+        // select.setAttributeNode(onChange);
         
         let index = 0;
+        console.log('len',res.lapSummaries.length)
         for(let lap of res.lapSummaries){
             const option = document.createElement('option');
             const valueAtr = document.createAttribute('value');
-            valueAtr.value = `${index}`;
+            valueAtr.value = `${index+1}`;
             option.setAttributeNode(valueAtr);
             option.innerText = `Lap ${index+1}`;
             select.appendChild(option);
             index++;
         }
-
-        header.appendChild(select);
-    }
-    addLapInfo(res.lapSummaries[1]);
+        }
 
 }
 
@@ -77,8 +83,35 @@ export function addLapInfo(lapDetails){
         </div>`
 }
 
+export function handleChange() {
+    console.log('change')
+    getFileName(
+        (res) => {
+            getLapRun(res);
+            getLapInfo(res[0],getLapNumber());
+        },
+        (err) => {
+            console.log(err);
+        }
+    )
+}
+
 export function getLapNumber(){
-    return 1;
+    const select = document.querySelector('select');
+    let option = select.options[select.selectedIndex];
+    // document.getElementById('#selector').value = option.value;
+    // console.log('val',option.value)
+    return 1//option.value;
+}
+
+export function startSpinner(){
+    const loader = document.querySelector('.loader');
+    loader.style.display = 'block';
+
+    const page = document.querySelector('.page-elements');
+    if(page){
+        page.style.justifyContent = "center";
+    }
 }
 
 export function stopSpinner(){
@@ -91,3 +124,4 @@ export function stopSpinner(){
     }
     
 }
+

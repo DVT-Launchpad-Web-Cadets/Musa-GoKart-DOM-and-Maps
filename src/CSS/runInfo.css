@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 1rem;
 }
 
 .run-page-title{
@@ -18,6 +18,10 @@
         font-size: 1.5rem;
         font-weight: bold;
     }
+}
+
+input{
+    align-self: flex-end;
 }
 
 #map{
