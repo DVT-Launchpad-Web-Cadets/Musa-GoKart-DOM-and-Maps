@@ -1,5 +1,9 @@
 export function drawLap(lapDetails){
-
+    var container = L.DomUtil.get('map'); 
+    if(container != null){ 
+        container._leaflet_id = null; 
+    }
+    
     let map = L.map('map', {
         center: [51.505, -0.09],
         zoom: 13
@@ -15,23 +19,23 @@ export function drawLap(lapDetails){
         } 
     }
    
-    let polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+    let polyline = L.polyline(latlngs, {color: 'lightgray'}).addTo(map);
     
     map.fitBounds(polyline.getBounds());
 
     // TODO: Fix the motion of the lap
 
-    // L.Motion.polyline(latlngs, {
-    //     color: "blue"
-    // }, {
-    //     auto: true,
-    //     duration: 3000,
-    //     easing: L.Motion.Ease.easeInOutQuart
-    // }, {
-    //     removeOnEnd: true,
-    //     showMarker: true,
-    //     icon: L.divIcon({html: "<i class='fa fa-car fa-2x' aria-hidden='true'></i>", iconSize: L.point(27.5, 24)})
-    // }).addTo(map);
+    L.motion.polyline(latlngs, {
+        color: "red"
+    }, {
+        auto: true,
+        duration: 5000,
+        easing: L.Motion.Ease.easeInOutQuart
+    }, {
+        removeOnEnd: true,
+        showMarker: true,
+        icon: L.divIcon({html: "<i class='fa fa-car fa-2x' aria-hidden='true'></i>", iconSize: L.point(27.5, 24)})
+    }).addTo(map);
 }
 
 function fixCoordinates(lat, lon) {
