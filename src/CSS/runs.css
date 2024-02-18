@@ -128,20 +128,12 @@ ul{
         grid-template-rows: auto;
     }
 
-    li{
-        height: 200px;
-    }
-
-    a{
-        height:200px;
-    }
-
     .main-card-content{
         justify-content: flex-start;
     }
 
     .run-item{
-        height: 200px;
+        align-items: flex-start;
     }
 }
 

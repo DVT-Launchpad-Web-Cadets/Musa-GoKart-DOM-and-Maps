@@ -15,7 +15,7 @@ export function addRunsToDom(res){
                 <div class="run-item">
                     <div class="main-card-content">
                         <p class="driver-name"> ${res.driver} </p>
-                        <p class="track-name"> ${res.trackName} </p>
+                        <p class="track-name"> ${res.trackName} • ${res.lapSummaries.length} laps </p>
                     </div>
                     <div class="card-tail">
                         <p class="run-date">${date}</p>
@@ -36,14 +36,8 @@ export function addHeaderInfo(res){
         name.innerText = res.driver;
 
         document.querySelector('button').addEventListener('click', handleChange)
-        // const form = document.createElement('form');
-        // const actionAtr = document.createAttribute('action');
-        // actionAtr.value = ''
 
         const select = document.querySelector('select');
-        // const onChange = document.createAttribute('onchange');
-        // onChange. = 'handleChange()';
-        // select.setAttributeNode(onChange);
         if(!select.hasChildNodes()){
             let index = 0;
             for(let lap of res.lapSummaries){
