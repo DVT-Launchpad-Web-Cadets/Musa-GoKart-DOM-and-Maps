@@ -73,3 +73,36 @@ a{
   gap: 0.5rem;
 }
 
+@media only screen and (min-width: 700px) {
+  .home-page{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin: 5rem;
+    justify-content: center;
+  }
+  .logo-container{
+    width: 400px;
+    height: 400px;
+  }
+
+  .app-description{
+    width: 300px;
+  }
+
+  .highlighted-text{
+    font-size: 2rem;
+  }
+
+  .sub-text{
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1005px) {
+  .logo-container{
+    width: 600px;
+    height: 600px;
+  }
+}
+

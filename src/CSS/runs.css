@@ -115,8 +115,38 @@ ul{
     align-self: center;
   }
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
 
+
+@media only screen and (min-width: 500px){
+    .run-list{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    li{
+        height: 200px;
+    }
+
+    a{
+        height:200px;
+    }
+
+    .main-card-content{
+        justify-content: flex-start;
+    }
+
+    .run-item{
+        height: 200px;
+    }
+}
+
+@media only screen and (min-width: 900px){
+    .run-list{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

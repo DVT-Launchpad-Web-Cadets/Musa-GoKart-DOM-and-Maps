@@ -44,3 +44,27 @@ input{
     flex-direction: column;
     justify-content: space-between;
 }
+
+@media only screen and (min-width: 500px){
+    #map{
+        width: 400px;
+        height: 300px;
+    }
+
+    .run-page-title{
+        width: 50%;
+    }
+
+    
+}
+
+@media only screen and (min-width: 900px){
+    #map{
+        width: 600px;
+        height: 400px;
+    }
+
+    .run-page-title{
+        width: 25%;
+    }
+}
