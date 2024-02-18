@@ -1,6 +1,6 @@
 import {changeDateFormat} from '../helpers/helpers'
 import { getFileName} from "./api_calls";
-import { getAllRuns, getLapInfo, getLapRun } from './runInfo_service';
+import { getLapInfo, getLapRun } from './runInfo_service';
 
 export function addRunsToDom(res){
     const runList = document.querySelector('.run-list');
@@ -32,7 +32,7 @@ export function addHeaderInfo(res){
     const header = document.querySelector('.run-page-title');
 
     if(res?.lapSummaries?.[0] && res.driver){
-        console.log('inside')
+        console.log('addHeader')
         const name = document.querySelector('#driver');
         name.innerText = res.driver;
 
@@ -47,7 +47,6 @@ export function addHeaderInfo(res){
         // select.setAttributeNode(onChange);
         
         let index = 0;
-        console.log('len',res.lapSummaries.length)
         for(let lap of res.lapSummaries){
             const option = document.createElement('option');
             const valueAtr = document.createAttribute('value');
@@ -63,7 +62,7 @@ export function addHeaderInfo(res){
 }
 
 export function addLapInfo(lapDetails){
-    console.log('add lap')
+    console.log('add lap info')
     const lapInfo = document.querySelector('.lap-info');
     let lapTime = 'DNF';
     if(lapDetails['time lap'] !== null ){
