@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .run-page-title{
@@ -34,15 +34,26 @@ input{
     flex-direction: column;
     justify-content: space-between;
     height: 150px;
+    width: 90%;
+    margin-top: 2rem;
 }
 
 .lap-detail{
     height: 3rem;
     width: 100%;
-    font-weight: 600;
+    font-weight: lighter;
+    color: gray;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 10px;
+    background-color: lightgray;
+    border-radius: 1rem;
+
+    span{
+        font-weight: 600;
+        color: #000000;
+    }
 }
 
 #selector{
@@ -63,6 +74,10 @@ button{
         width: 50%;
     }
 
+    .lap-info{
+        width: 400px;
+    }
+
     
 }
 
@@ -75,4 +90,21 @@ button{
     .run-page-title{
         width: 25%;
     }
+
+    .info-page-elements{
+        align-items: center;
+    }
+
+    .lap-info{
+        flex-direction: row;
+        justify-content: space-between;
+        height: 150px;
+        width: 400px;
+    }
+
+    .lap-detail{
+        width: 150px;
+    }
+
+
 }

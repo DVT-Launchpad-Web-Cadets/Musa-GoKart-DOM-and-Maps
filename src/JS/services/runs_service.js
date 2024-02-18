@@ -1,7 +1,7 @@
-import { getAllRunsCall, getFileName } from "./api_calls";
+import { getAllRunsCall, getRunsFileName } from "./api_calls";
 import { addRunsToDom } from "./dom_manipulation";
 
-getFileName(
+getRunsFileName(
     (res) => {
         getAllRuns(res) 
     },

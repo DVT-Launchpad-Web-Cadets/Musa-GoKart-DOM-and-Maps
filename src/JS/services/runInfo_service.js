@@ -1,9 +1,8 @@
 import { drawLap } from "../map/runInfoMap";
-import { getAllRunsCall, getFileName, getLapInfoCall } from "./api_calls";
-import { addHeaderInfo, getLapNumber, addLapInfo } from "./dom_manipulation";
+import { getAllRunsCall, getInfoFileName, getLapInfoCall } from "./api_calls";
+import { addHeaderInfo, addLapInfo } from "./dom_manipulation";
 
 export function getAllRunsInfo(filename){
-    console.log('getAllRuns')
     if(filename?.[0]){
         getAllRunsCall(
             filename[0],
@@ -19,8 +18,6 @@ export function getAllRunsInfo(filename){
 }
 
 export function getLapRun(res, lap){
-    console.log('getLapRun')
-    console.log('getLapRun',res)
     if(res?.[0]){
         getAllRunsCall(
             res[0],
@@ -35,7 +32,6 @@ export function getLapRun(res, lap){
 }
 
 export function getLapInfo(filename, lap){
-    console.log('getLapInfo',lap)
     getLapInfoCall(
         filename,
         lap,
@@ -50,7 +46,7 @@ export function getLapInfo(filename, lap){
     )
 }
 function initialisePage(){
-    getFileName(
+    getInfoFileName(
         (res) => {
             getAllRunsInfo(res);
         },

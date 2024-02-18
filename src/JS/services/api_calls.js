@@ -1,8 +1,25 @@
 import API_BASE_URL from '../api/api_Base_Url'
 import { stopSpinner } from './dom_manipulation';
 
-export function getFileName (callBack, errorCallBack){
-    console.log('getFIle')
+export function getRunsFileName (callBack, errorCallBack){
+    fetch(`${API_BASE_URL}/runs`)
+    .then(response => response.json())
+    .then(responseJson => {
+        callBack(responseJson);
+    })
+    .catch(err => errorCallBack(err))
+}
+
+export function getInfoFileName (callBack, errorCallBack){
+    fetch(`${API_BASE_URL}/runs`)
+    .then(response => response.json())
+    .then(responseJson => {
+        callBack(responseJson);
+    })
+    .catch(err => errorCallBack(err))
+}
+
+export function getLapFileName (callBack, errorCallBack){
     fetch(`${API_BASE_URL}/runs`)
     .then(response => response.json())
     .then(responseJson => {
@@ -12,7 +29,6 @@ export function getFileName (callBack, errorCallBack){
 }
 
 export function getAllRunsCall(filename,callBack, errorCallBack){
-    console.log('getAllRunsCall')
     fetch(`${API_BASE_URL}/runs/${filename}`)
     .then(response => response.json())
     .then(responseJson => {
@@ -23,8 +39,6 @@ export function getAllRunsCall(filename,callBack, errorCallBack){
 }
 
 export function getLapInfoCall(filename, lap, callBack, errorCallBack){
-    console.log('getLapInfoCall')
-    console.log(`${API_BASE_URL}/runs/${filename}/laps/${lap}`)
     fetch(`${API_BASE_URL}/runs/${filename}/laps/${lap}`)
     .then(response => response.json())
     .then(responseJson => {

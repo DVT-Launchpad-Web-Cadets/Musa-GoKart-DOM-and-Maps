@@ -1,5 +1,5 @@
 import {changeDateFormat} from '../helpers/helpers'
-import { getFileName} from "./api_calls";
+import { getLapFileName} from "./api_calls";
 import { getLapInfo, getLapRun } from './runInfo_service';
 
 export function addRunsToDom(res){
@@ -32,7 +32,6 @@ export function addHeaderInfo(res){
     const header = document.querySelector('.run-page-title');
 
     if(res?.lapSummaries?.[0] && res.driver){
-        console.log('addHeader')
         const name = document.querySelector('#driver');
         name.innerText = res.driver;
 
@@ -64,7 +63,6 @@ export function addHeaderInfo(res){
 }
 
 export function addLapInfo(lapDetails){
-    console.log('add lap info')
     const lapInfo = document.querySelector('.lap-info');
     let lapTime = 'DNF';
     if(lapDetails['time lap'] !== null ){
@@ -86,7 +84,7 @@ export function addLapInfo(lapDetails){
         </div>
         <div class="lap-detail avg-speed">
             <span>
-                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <i class="fa fa-signal" aria-hidden="true"></i>
                 Avg Speed:
             </span>
             ${avg}
@@ -96,7 +94,7 @@ export function addLapInfo(lapDetails){
 
 export function handleChange() {
     startSpinner();
-    getFileName(
+    getLapFileName(
         (res) => {
             getLapRun(res, getLapNumber());
             getLapInfo(res[0],getLapNumber());
@@ -109,9 +107,7 @@ export function handleChange() {
 
 export function getLapNumber(){
     const select = document.querySelector('select');
-    console.log('index',select.options[select.selectedIndex])
     let option = select.options[select.selectedIndex];
-    console.log('val',option.value)
     return option.value;
 }
 
