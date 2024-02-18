@@ -1,45 +1,51 @@
 export function drawLap(lapDetails){
     console.log('draw')
 
-    // TODO: Fix the latlongs
-    
-    // let latlngs = [
-    //     [[45.51, -122.68],
-    //      [45.77, -122.43],
-    //      [45.04, -122.2]],
-    //     [[40.78, -73.91],
-    //      [41.83, -87.62],
-    //      [32.76, -96.72]]
-    // ];
-
-    let latlngs = [];
-    for(let lap of lapDetails){
-        if(lap['Lat.'] && lap['Lon.']){
-            latlngs.push([lap['Lat.'], lap['Lon.']]);
-        }
-    }
-
-    // let latlngs = [
-    //     [lapDetails[0]['Lat.'], lapDetails[0]['Lon.']],
-    //     [lapDetails[1]['Lat.'], lapDetails[1]['Lon.']],
-    //     [lapDetails[2]['Lat.'], lapDetails[2]['Lon.']]
-    // ]
-    
-
-    let map = L.map('map', {
-            center: [51.505, -0.09], 
-            zoom: 13,
-            renderer: L.canvas()
+    var map = L.map('map', {
+        center: [51.505, -0.09],
+        zoom: 13
     });
 
-    console.log(latlngs);
+    // let latlngs = [
+    //     [45.51, -122.68],
+    //     [37.77, -122.43],
+    //     [34.04, -118.2]
+    // ];
+    let latlngs = [];
+    if(lapDetails?.[0]){
+        
+        for(let lap of lapDetails){
+            if(lap['Lat.'] && lap['Lon.']){
+                latlngs.push(fixCoordinates(lap['Lat.'], lap['Lon.']))
+            }
+        } 
+    }
 
+    
+    console.log('done');
+   
     let polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+    
 
-    // L.marker([latlngs[20][0], latlngs[20][1]]).addTo(map);
-
-    // zoom the map to the polygon
+    // // zoom the map to the polyline
     map.fitBounds(polyline.getBounds());
+
+
+    // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+
+    // L.marker([-8.249362777777778, 8.479446388888888]).addTo(map)
+    // .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+    // .openPopup();
 }
+
+function fixCoordinates(lat, lon) {
+    lat = lat / 3600000;
+    lon = lon / 3600000;
+
+    return [lat, lon];
+}
+
 
 

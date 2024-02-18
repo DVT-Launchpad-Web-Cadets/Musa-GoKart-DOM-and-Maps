@@ -57,15 +57,24 @@ export function addHeaderInfo(res){
             select.appendChild(option);
             index++;
         }
-        }
+        addLapInfo(res.lapSummaries[0]);
+    }
 
 }
 
 export function addLapInfo(lapDetails){
+    console.log('add lap')
     const lapInfo = document.querySelector('.lap-info');
+    let lapTime = 'DNF';
+    if(lapDetails['time lap'] !== null ){
+        lapTime = new Date(lapDetails['time lap']).toISOString().slice(11, 19);
+    }
 
-    const lapTime = new Date(lapDetails['time lap']).toISOString().slice(11, 19);
-    const avg = (lapDetails['Min Speed GPS'] + lapDetails['Max Speed GPS'])/2;
+    let avg = "N/A";
+    if(lapDetails['Min Speed GPS'] && lapDetails['Max Speed GPS']){
+        avg = (lapDetails['Min Speed GPS'] + lapDetails['Max Speed GPS'])/2 + "units";
+    }
+
     lapInfo.innerHTML = `
         <div class="lap-detail lap-time">
         <span>
@@ -79,15 +88,16 @@ export function addLapInfo(lapDetails){
                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                 Avg Speed:
             </span>
-            ${avg}units
+            ${avg}
         </div>`
+    
 }
 
 export function handleChange() {
-    console.log('change')
+    startSpinner();
     getFileName(
         (res) => {
-            getLapRun(res);
+            getLapRun(res, getLapNumber());
             getLapInfo(res[0],getLapNumber());
         },
         (err) => {
@@ -98,19 +108,20 @@ export function handleChange() {
 
 export function getLapNumber(){
     const select = document.querySelector('select');
+    console.log('index',select.options[select.selectedIndex])
     let option = select.options[select.selectedIndex];
-    // document.getElementById('#selector').value = option.value;
-    // console.log('val',option.value)
-    return 1//option.value;
+    console.log('val',option.value)
+    return option.value;
 }
 
 export function startSpinner(){
     const loader = document.querySelector('.loader');
     loader.style.display = 'block';
+    loader.style.zIndex  = '1';
 
-    const page = document.querySelector('.page-elements');
+    const page = document.querySelector('.info-page-elements');
     if(page){
-        page.style.justifyContent = "center";
+        page.style.justifyContent = "flex-start";
     }
 }
 
@@ -118,7 +129,7 @@ export function stopSpinner(){
     const loader = document.querySelector('.loader');
     loader.style.display = 'none';
 
-    const page = document.querySelector('.page-elements');
+    const page = document.querySelector('.info-page-elements');
     if(page){
         page.style.justifyContent = "flex-start";
     }
