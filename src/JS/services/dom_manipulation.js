@@ -45,17 +45,19 @@ export function addHeaderInfo(res){
         // const onChange = document.createAttribute('onchange');
         // onChange. = 'handleChange()';
         // select.setAttributeNode(onChange);
-        
-        let index = 0;
-        for(let lap of res.lapSummaries){
-            const option = document.createElement('option');
-            const valueAtr = document.createAttribute('value');
-            valueAtr.value = `${index+1}`;
-            option.setAttributeNode(valueAtr);
-            option.innerText = `Lap ${index+1}`;
-            select.appendChild(option);
-            index++;
+        if(!select.hasChildNodes()){
+            let index = 0;
+            for(let lap of res.lapSummaries){
+                const option = document.createElement('option');
+                const valueAtr = document.createAttribute('value');
+                valueAtr.value = `${index+1}`;
+                option.setAttributeNode(valueAtr);
+                option.innerText = `Lap ${index+1}`;
+                select.appendChild(option);
+                index++;
+            }
         }
+        
         addLapInfo(res.lapSummaries[0]);
     }
 
@@ -125,6 +127,17 @@ export function startSpinner(){
 }
 
 export function stopSpinner(){
+    const select = document.querySelector('select');
+    if(select){
+        select.style.display = 'block';
+    }
+
+    const button = document.querySelector('button');
+    if(button){
+        button.style.display = 'block';
+    }
+    
+
     const loader = document.querySelector('.loader');
     loader.style.display = 'none';
 

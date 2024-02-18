@@ -30,6 +30,18 @@ export function drawLap(lapDetails){
     // // zoom the map to the polyline
     map.fitBounds(polyline.getBounds());
 
+    L.Motion.polyline(latlngs, {
+        color: "blue"
+    }, {
+        auto: true,
+        duration: 3000,
+        easing: L.Motion.Ease.easeInOutQuart
+    }, {
+        removeOnEnd: true,
+        showMarker: true,
+        icon: L.divIcon({html: "<i class='fa fa-car fa-2x' aria-hidden='true'></i>", iconSize: L.point(27.5, 24)})
+    }).addTo(map);
+
 
     // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
