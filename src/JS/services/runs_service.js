@@ -1,7 +1,7 @@
-import { getAllRunsCall, getRunsFileName } from "./api_calls";
-import { addRunsToDom } from "./dom_manipulation";
+import { getAllRunsCall, getFileName } from "./api_calls";
+import { addRunsToDom, stopSpinner } from "./runsDomManipulation";
 
-getRunsFileName(
+getFileName(
     (res) => {
         getAllRuns(res) 
     },
@@ -19,6 +19,9 @@ function getAllRuns(res){
             },
             (err) => {
                 console.log(err);
+            },
+            () => {
+                stopSpinner();
             }
         )
     }

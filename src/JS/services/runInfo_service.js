@@ -1,6 +1,6 @@
 import { drawLap } from "../map/runInfoMap";
-import { getAllRunsCall, getInfoFileName, getLapInfoCall } from "./api_calls";
-import { addHeaderInfo, addLapInfo } from "./dom_manipulation";
+import { getFileName, getAllRunsCall, getLapInfoCall } from "./api_calls";
+import { addHeaderInfo, addLapInfo, stopSpinner } from "./runInfoDomManipulation";
 
 export function getAllRunsInfo(filename){
     if(filename?.[0]){
@@ -12,7 +12,11 @@ export function getAllRunsInfo(filename){
             },
             (err) => {
                 console.log(err);
+            },
+            () => {
+                stopSpinner();
             }
+            
         )
     }
 }
@@ -26,7 +30,11 @@ export function getLapRun(res, lap){
             },
             (err) => {
                 console.log(err);
+            },
+            () => {
+                stopSpinner();
             }
+            
         )
     }
 }
@@ -42,11 +50,14 @@ export function getLapInfo(filename, lap){
         },
         (err) => {
             console.error(err);
+        },
+        () => {
+            stopSpinner();
         }
     )
 }
 function initialisePage(){
-    getInfoFileName(
+    getFileName(
         (res) => {
             getAllRunsInfo(res);
         },

@@ -1,7 +1,7 @@
 import API_BASE_URL from '../api/api_Base_Url'
-import { stopSpinner } from './dom_manipulation';
 
-export function getRunsFileName (callBack, errorCallBack){
+
+export function getFileName (callBack, errorCallBack){
     fetch(`${API_BASE_URL}/runs`)
     .then(response => response.json())
     .then(responseJson => {
@@ -10,35 +10,19 @@ export function getRunsFileName (callBack, errorCallBack){
     .catch(err => errorCallBack(err))
 }
 
-export function getInfoFileName (callBack, errorCallBack){
-    fetch(`${API_BASE_URL}/runs`)
-    .then(response => response.json())
-    .then(responseJson => {
-        callBack(responseJson);
-    })
-    .catch(err => errorCallBack(err))
-}
-
-export function getLapFileName (callBack, errorCallBack){
-    fetch(`${API_BASE_URL}/runs`)
-    .then(response => response.json())
-    .then(responseJson => {
-        callBack(responseJson);
-    })
-    .catch(err => errorCallBack(err))
-}
-
-export function getAllRunsCall(filename,callBack, errorCallBack){
+export function getAllRunsCall(filename, callBack, errorCallBack, finallyCallBack){
     fetch(`${API_BASE_URL}/runs/${filename}`)
     .then(response => response.json())
     .then(responseJson => {
         callBack(responseJson)
     })
     .catch(err => errorCallBack(err))
-    .finally(() =>{stopSpinner()})
+    .finally(() => {
+        finallyCallBack();
+    })
 }
 
-export function getLapInfoCall(filename, lap, callBack, errorCallBack){
+export function getLapInfoCall(filename, lap, callBack, errorCallBack,finallyCallBack){
     fetch(`${API_BASE_URL}/runs/${filename}/laps/${lap}`)
     .then(response => response.json())
     .then(responseJson => {
@@ -46,6 +30,6 @@ export function getLapInfoCall(filename, lap, callBack, errorCallBack){
     })
     .catch(err => errorCallBack(err))
     .finally(() => {
-        stopSpinner()
+        finallyCallBack();
     })
 }

@@ -1,32 +1,5 @@
-import {changeDateFormat} from '../helpers/helpers'
-import { getLapFileName} from "./api_calls";
-import { getLapInfo, getLapRun } from './runInfo_service';
-
-export function addRunsToDom(res){
-    const runList = document.querySelector('.run-list');
-    
-    if(res?.trackName && res.driver && res.date){
-        const listItem = document.createElement('li');
-
-        const date = changeDateFormat(res.date);
-
-        listItem.innerHTML =`
-            <a href="runInfo.html">
-                <div class="run-item">
-                    <div class="main-card-content">
-                        <p class="driver-name"> ${res.driver} </p>
-                        <p class="track-name"> ${res.trackName} • ${res.lapSummaries.length} laps </p>
-                    </div>
-                    <div class="card-tail">
-                        <p class="run-date">${date}</p>
-                        <span>•</span>
-                    </div>
-                </div>
-            </a>`
-        
-        runList.appendChild(listItem);
-    }
-}
+import { getFileName } from "./api_calls";
+import { getLapInfo, getLapRun } from "./runInfo_service";
 
 export function addHeaderInfo(res){
     const header = document.querySelector('.run-page-title');
@@ -65,7 +38,8 @@ export function addLapInfo(lapDetails){
 
     let avg = "N/A";
     if(lapDetails['Min Speed GPS'] && lapDetails['Max Speed GPS']){
-        avg = (lapDetails['Min Speed GPS'] + lapDetails['Max Speed GPS'])/2 + "units";
+        avg = (lapDetails['Min Speed GPS'] + lapDetails['Max Speed GPS'])/2 + "km/h";
+        avg = avg / 10;
     }
 
     lapInfo.innerHTML = `
@@ -88,7 +62,7 @@ export function addLapInfo(lapDetails){
 
 export function handleChange() {
     startSpinner();
-    getLapFileName(
+    getFileName(
         (res) => {
             getLapRun(res, getLapNumber());
             getLapInfo(res[0],getLapNumber());
