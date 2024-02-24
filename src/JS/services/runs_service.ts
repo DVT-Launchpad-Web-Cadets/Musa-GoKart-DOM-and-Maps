@@ -1,23 +1,24 @@
 import { getAllRunsCall, getFileName } from "./api_calls";
 import { addRunsToDom, stopSpinner } from "./runsDomManipulation";
 
+// I will change the any type later
 getFileName(
-    (res) => {
+    (res: any) => {
         getAllRuns(res) 
     },
-    (err) => {
+    (err: any) => {
         console.log(err);
     }
 )
 
-function getAllRuns(res){
-    if(res?.[0]){
+function getAllRuns(filename: string[]){
+    if(filename?.[0]){
         getAllRunsCall(
-            res[0],
-            (res) => {
+            filename[0],
+            (res: any) => {
                 addRunsToDom(res);
             },
-            (err) => {
+            (err: any) => {
                 console.log(err);
             },
             () => {

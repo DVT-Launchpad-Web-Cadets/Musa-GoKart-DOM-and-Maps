@@ -1,7 +1,7 @@
 import API_BASE_URL from '../api/api_Base_Url'
 
-
-export function getFileName (callBack, errorCallBack){
+// I will change the any type later
+export function getFileName (callBack: any, errorCallBack: any){
     fetch(`${API_BASE_URL}/runs`)
     .then(response => response.json())
     .then(responseJson => {
@@ -10,7 +10,7 @@ export function getFileName (callBack, errorCallBack){
     .catch(err => errorCallBack(err))
 }
 
-export function getAllRunsCall(filename, callBack, errorCallBack, finallyCallBack){
+export function getAllRunsCall(filename: any, callBack: any, errorCallBack: any, finallyCallBack: any){
     fetch(`${API_BASE_URL}/runs/${filename}`)
     .then(response => response.json())
     .then(responseJson => {
@@ -22,7 +22,7 @@ export function getAllRunsCall(filename, callBack, errorCallBack, finallyCallBac
     })
 }
 
-export function getLapInfoCall(filename, lap, callBack, errorCallBack,finallyCallBack){
+export function getLapInfoCall(filename: any, lap: any, callBack: any, errorCallBack: any,finallyCallBack: any){
     fetch(`${API_BASE_URL}/runs/${filename}/laps/${lap}`)
     .then(response => response.json())
     .then(responseJson => {

@@ -1,7 +1,8 @@
 import {changeDateFormat} from '../helpers/helpers';
 
-export function addRunsToDom(res){
-    const runList = document.querySelector('.run-list');
+// I will change the any type later
+export function addRunsToDom(res: any){
+    const runList: HTMLElement | null = document.querySelector('.run-list');
     
     if(res?.trackName && res.driver && res.date){
         const listItem = document.createElement('li');
@@ -22,15 +23,15 @@ export function addRunsToDom(res){
                 </div>
             </a>`
         
-        runList.appendChild(listItem);
+        runList!.appendChild(listItem);
     }
 }
 
 export function stopSpinner(){
-    const loader = document.querySelector('.loader');
-    loader.style.display = 'none';
+    const loader: HTMLElement | null = document.querySelector('.loader');
+    loader!.style.display = 'none';
 
-    const page = document.querySelector('.info-page-elements');
+    const page: HTMLElement | null = document.querySelector('.info-page-elements');
     if(page){
         page.style.justifyContent = "flex-start";
     }

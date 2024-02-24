@@ -1,26 +1,24 @@
 import { getFileName } from "./api_calls";
 import { getLapInfo, getLapRun } from "./runInfo_service";
 
-export function addHeaderInfo(res){
-    const header = document.querySelector('.run-page-title');
-
+// I will change the any type later
+export function addHeaderInfo(res: any){
     if(res?.lapSummaries?.[0] && res.driver){
-        const name = document.querySelector('#driver');
-        name.innerText = res.driver;
+        const name: HTMLElement| null = document.querySelector('#driver');
+        name!.innerText = res.driver;
 
-        document.querySelector('button').addEventListener('click', handleChange)
+        // Safety checks
+        document.querySelector('button')!.addEventListener('click', handleChange)
 
-        const select = document.querySelector('select');
-        if(!select.hasChildNodes()){
-            let index = 0;
-            for(let lap of res.lapSummaries){
+        const select: HTMLElement | null = document.querySelector('select');
+        if(select && !select.hasChildNodes()){
+            for(let lap in res.lapSummaries){
                 const option = document.createElement('option');
                 const valueAtr = document.createAttribute('value');
-                valueAtr.value = `${index+1}`;
+                valueAtr.value = `${lap+1}`;
                 option.setAttributeNode(valueAtr);
-                option.innerText = `Lap ${index+1}`;
+                option.innerText = `Lap ${lap+1}`;
                 select.appendChild(option);
-                index++;
             }
         }
         
@@ -29,20 +27,20 @@ export function addHeaderInfo(res){
 
 }
 
-export function addLapInfo(lapDetails){
-    const lapInfo = document.querySelector('.lap-info');
+export function addLapInfo(lapDetails: any){
+    const lapInfo: HTMLElement | null = document.querySelector('.lap-info');
     let lapTime = 'DNF';
     if(lapDetails['time lap'] !== null ){
         lapTime = new Date(lapDetails['time lap']).toISOString().slice(11, 19);
     }
 
-    let avg = "N/A";
+    let avg: string | number= "N/A";
     if(lapDetails['Min Speed GPS'] && lapDetails['Max Speed GPS']){
         avg = (lapDetails['Min Speed GPS'] + lapDetails['Max Speed GPS'])/2 + "km/h";
-        avg = avg / 10;
+        avg = parseInt(avg) / 10;
     }
 
-    lapInfo.innerHTML = `
+    lapInfo!.innerHTML = `
         <div class="lap-detail lap-time">
         <span>
             <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -63,28 +61,28 @@ export function addLapInfo(lapDetails){
 export function handleChange() {
     startSpinner();
     getFileName(
-        (res) => {
+        (res: any) => {
             getLapRun(res, getLapNumber());
             getLapInfo(res[0],getLapNumber());
         },
-        (err) => {
+        (err: any) => {
             console.log(err);
         }
     )
 }
 
 export function getLapNumber(){
-    const select = document.querySelector('select');
-    let option = select.options[select.selectedIndex];
+    const select: HTMLSelectElement | null  = document.querySelector('select');
+    let option = select!.options[select!.selectedIndex];
     return option.value;
 }
 
 export function startSpinner(){
-    const loader = document.querySelector('.loader');
-    loader.style.display = 'block';
-    loader.style.zIndex  = '1';
+    const loader: HTMLElement | null = document.querySelector('.loader');
+    loader!.style.display = 'block';
+    loader!.style.zIndex  = '1';
 
-    const page = document.querySelector('.info-page-elements');
+    const page: HTMLElement | null  = document.querySelector('.info-page-elements');
     if(page){
         page.style.justifyContent = "flex-start";
     }
@@ -102,10 +100,10 @@ export function stopSpinner(){
     }
     
 
-    const loader = document.querySelector('.loader');
-    loader.style.display = 'none';
+    const loader: HTMLElement | null  = document.querySelector('.loader');
+    loader!.style.display = 'none';
 
-    const page = document.querySelector('.info-page-elements');
+    const page: HTMLElement | null  = document.querySelector('.info-page-elements');
     if(page){
         page.style.justifyContent = "flex-start";
     }
