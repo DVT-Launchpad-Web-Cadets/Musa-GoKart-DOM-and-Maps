@@ -1,5 +1,5 @@
 export function changeDateFormat(dateString: string){
-    let monthNames = [
+    const monthNames = [
         "Jan", "Feb", "Mar",
         "Apr", "May", "Jun", "Jul",
         "Aug", "Sep", "Oct",
@@ -7,9 +7,16 @@ export function changeDateFormat(dateString: string){
       ];
 
     const dateSplit = dateString.split("-");
-    let day = dateSplit[0];
-    let monthIndex: number = Number(dateSplit[1]);
-    let year = dateSplit[2];
-    
-    return  `${day} ${monthNames[monthIndex -1]} ${year}`;
+    if(!isNaN(Number(dateSplit[0])) && !isNaN(Number(dateSplit[1])) && !isNaN(Number(dateSplit[2]))){
+      const day = dateSplit[0];
+      const monthIndex = Number(dateSplit[1]);
+      const year = dateSplit[2];
+      
+      return  `${day} ${monthNames[monthIndex -1]} ${year}`;
+    }
+
+  return "N/A";
 }
+
+    
+   
