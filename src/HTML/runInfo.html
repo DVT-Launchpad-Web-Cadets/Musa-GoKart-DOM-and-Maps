@@ -12,7 +12,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-     <script src="../../node_modules/leaflet.motion/dist/leaflet.motion.min.js"></script>
      <link 
     href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
     rel="stylesheet"  type='text/css'>
@@ -30,10 +29,11 @@
         <div class="run-page-title">
             <span id="driver"></span>
             <select name="mySelect" id="selector"></select>
-            <button>Select</button>
+            <button class="select-btn">Select</button>
         </div>
         
         <div id="map"></div>
+        <button class="start-btn">Start</button>
         <div class="lap-info"></div>
     </div>
     <script src="../TS/map/runInfoMap.ts" type="module"></script>

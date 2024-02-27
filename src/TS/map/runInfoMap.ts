@@ -1,6 +1,5 @@
 import * as L from "leaflet";
 import '../../CSS/map.css'
-// import * as M from "../../../node_modules/leaflet.motion/dist/leaflet.motion.min.js";
 import { DataSet} from "../models/lapDetials";
 export function drawLap(lapDetails: DataSet[]){
     const map = L.map('map', {
@@ -21,11 +20,24 @@ export function drawLap(lapDetails: DataSet[]){
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-   const lat = latlngs[0];
+    const lat = latlngs[0];
     const polyline = L.polyline(latlngs, { className: "lap"}).addTo(map);
 
-    L.circle(lat, {radius: 3}).addTo(map);
-    
+    const kart = L.circleMarker(lat, {radius: 3, className: "kart"});
+
+    kart.addTo(map);
+
+    let index = 0;
+    let move = setInterval(() =>{
+        console.log("here");
+        kart.setLatLng(latlngs[index]);
+        index++;
+        if(index >= latlngs.length){
+            clearInterval(move);
+        }
+    }
+    ,100)
+
     map.fitBounds(polyline.getBounds());
 
 }
