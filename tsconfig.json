@@ -25,5 +25,5 @@
     "noImplicitThis": true,
     "alwaysStrict": true
   },
-  "include": ["src", "src"]
+  "include": ["src"]
 }
