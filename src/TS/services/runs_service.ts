@@ -1,12 +1,12 @@
+import { KartRun } from "../models/KartRun";
 import { getAllRunsCall, getFileName } from "./api_calls";
 import { addRunsToDom, stopSpinner } from "./runsDomManipulation";
 
-// I will change the any type later
 getFileName(
-    (res: any) => {
+    (res: string[]) => {
         getAllRuns(res) 
     },
-    (err: any) => {
+    (err: Error) => {
         console.log(err);
     }
 )
@@ -15,10 +15,10 @@ function getAllRuns(filename: string[]){
     if(filename?.[0]){
         getAllRunsCall(
             filename[0],
-            (res: any) => {
+            (res: KartRun) => {
                 addRunsToDom(res);
             },
-            (err: any) => {
+            (err: Error) => {
                 console.log(err);
             },
             () => {

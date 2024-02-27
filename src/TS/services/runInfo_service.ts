@@ -1,17 +1,18 @@
 import { drawLap } from "../map/runInfoMap";
+import { KartRun } from "../models/KartRun";
+import { LapDetails } from "../models/lapDetials";
 import { getFileName, getAllRunsCall, getLapInfoCall } from "./api_calls";
-import { addHeaderInfo, addLapInfo, stopSpinner } from "./runInfoDomManipulation";
+import { addHeaderInfo, addLapInfo, getLapNumber, startSpinner, stopSpinner } from "./runInfoDomManipulation";
 
-// I will change the any type later
 export function getAllRunsInfo(filename: string[]){
     if(filename?.[0]){
         getAllRunsCall(
             filename[0],
-            (res: any) => {
-                addHeaderInfo(res);  
+            (res: KartRun) => {
+                addHeaderInfo(res, handleChange);   
                 getLapInfo(filename[0],1);
             },
-            (err: any) => {
+            (err: Error) => {
                 console.log(err);
             },
             () => {
@@ -22,14 +23,14 @@ export function getAllRunsInfo(filename: string[]){
     }
 }
 
-export function getLapRun(res: any, lap: any){
-    if(res?.[0]){
+export function getLapRun(fileName: string[], lap: number){
+    if(fileName?.[0]){
         getAllRunsCall(
-            res[0],
-            (res: any) => {
+            fileName[0],
+            (res: KartRun) => {
                 addLapInfo(res.lapSummaries[lap-1]);
             },
-            (err: any) => {
+            (err: Error) => {
                 console.log(err);
             },
             () => {
@@ -40,16 +41,16 @@ export function getLapRun(res: any, lap: any){
     }
 }
 
-export function getLapInfo(filename: any, lap: any){
+export function getLapInfo(filename: string, lap: number){
     getLapInfoCall(
         filename,
         lap,
-        (res: any) => {
+        (res: LapDetails) => {
             if(res?.dataSet?.[0]){
                 drawLap(res.dataSet)
             }
         },
-        (err: any) => {
+        (err: Error) => {
             console.error(err);
         },
         () => {
@@ -57,19 +58,31 @@ export function getLapInfo(filename: any, lap: any){
         }
     )
 }
+
+export function handleChange() {
+    startSpinner();
+    getFileName(
+        (res: string[]) => {
+            getLapRun(res, getLapNumber());
+            getLapInfo(res[0],getLapNumber());
+        },
+        (err: Error) => {
+            console.log(err);
+        }
+    )
+}
+
 function initialisePage(){
     getFileName(
-        (res: any) => {
+        (res: string[]) => {
             getAllRunsInfo(res);
         },
-        (err: any) => {
+        (err: Error) => {
             console.log(err);
         }
     )
 }
 
 initialisePage();
-
-
 
 

@@ -1,25 +1,35 @@
-import { getFileName } from "./api_calls";
-import { getLapInfo, getLapRun } from "./runInfo_service";
+import { KartRun, LapSummaries } from "../models/KartRun";
 
-// I will change the any type later
-export function addHeaderInfo(res: any){
+export function addHeaderInfo(res: KartRun, changeCallBack: () => void){
     if(res?.lapSummaries?.[0] && res.driver){
         const name: HTMLElement| null = document.querySelector('#driver');
-        name!.innerText = res.driver;
 
+        if(!name){
+            throw new Error("Seems like an error from our side!");
+        }
+        
+        name.innerText = res.driver;
         // Safety checks
-        document.querySelector('button')!.addEventListener('click', handleChange)
+        const button =  document.querySelector('button');
+        if(!button){
+            throw new Error("Seems like an error from our side!");
+        }
+        
+        button.addEventListener('click', changeCallBack);
 
         const select: HTMLElement | null = document.querySelector('select');
         if(select && !select.hasChildNodes()){
             for(let lap in res.lapSummaries){
                 const option = document.createElement('option');
                 const valueAtr = document.createAttribute('value');
-                valueAtr.value = `${lap+1}`;
+                const lapNumber = Number(lap) + 1;
+                valueAtr.value = `${lapNumber}`;
                 option.setAttributeNode(valueAtr);
-                option.innerText = `Lap ${lap+1}`;
+                option.innerText = `Lap ${lapNumber}`;
                 select.appendChild(option);
             }
+        }else{
+            throw new Error("Seems like an error from our side!");
         }
         
         addLapInfo(res.lapSummaries[0]);
@@ -27,20 +37,25 @@ export function addHeaderInfo(res: any){
 
 }
 
-export function addLapInfo(lapDetails: any){
+export function addLapInfo(lapSummaries: LapSummaries){
     const lapInfo: HTMLElement | null = document.querySelector('.lap-info');
+
+    if(!lapInfo){
+        throw new Error("Seems like an error from put side!");
+    }
+
     let lapTime = 'DNF';
-    if(lapDetails['time lap'] !== null ){
-        lapTime = new Date(lapDetails['time lap']).toISOString().slice(11, 19);
+    if(lapSummaries['time lap']){
+        lapTime = new Date(lapSummaries['time lap']).toISOString().slice(11, 19);
     }
 
     let avg: string | number= "N/A";
-    if(lapDetails['Min Speed GPS'] && lapDetails['Max Speed GPS']){
-        avg = (lapDetails['Min Speed GPS'] + lapDetails['Max Speed GPS'])/2 + "km/h";
+    if(lapSummaries['Min Speed GPS'] && lapSummaries['Max Speed GPS']){
+        avg = (lapSummaries['Min Speed GPS'] + lapSummaries['Max Speed GPS'])/2 + "km/h";
         avg = parseInt(avg) / 10;
     }
 
-    lapInfo!.innerHTML = `
+    lapInfo.innerHTML =`
         <div class="lap-detail lap-time">
         <span>
             <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -58,55 +73,59 @@ export function addLapInfo(lapDetails: any){
     
 }
 
-export function handleChange() {
-    startSpinner();
-    getFileName(
-        (res: any) => {
-            getLapRun(res, getLapNumber());
-            getLapInfo(res[0],getLapNumber());
-        },
-        (err: any) => {
-            console.log(err);
-        }
-    )
-}
+// Turn this into a callback from the orchestrator
 
-export function getLapNumber(){
+export function getLapNumber() {
     const select: HTMLSelectElement | null  = document.querySelector('select');
-    let option = select!.options[select!.selectedIndex];
-    return option.value;
+
+    if(select){
+        let option = select.options[select.selectedIndex];
+        if(!isNaN(Number(option.value)))
+        return Number(option.value);  
+    }
+    throw new Error("Seems like an error from our side!");
+    
 }
 
 export function startSpinner(){
     const loader: HTMLElement | null = document.querySelector('.loader');
-    loader!.style.display = 'block';
-    loader!.style.zIndex  = '1';
+    if(!loader){
+        throw new Error("Seems like an error from our side!");
+    }
+    loader.style.display = 'block';
 
     const page: HTMLElement | null  = document.querySelector('.info-page-elements');
-    if(page){
-        page.style.justifyContent = "flex-start";
+    if(!page){
+        throw new Error("Seems like an error from our side!");
     }
+    page.style.justifyContent = "flex-start";
 }
 
 export function stopSpinner(){
     const select = document.querySelector('select');
-    if(select){
-        select.style.display = 'block';
+    if(!select){
+        throw new Error("Seems like an error from our side!");
     }
+    select.style.display = 'block';
 
     const button = document.querySelector('button');
-    if(button){
-        button.style.display = 'block';
+    if(!button){
+        throw new Error("Seems like an error from our side!");
     }
+    button.style.display = 'block';
     
 
     const loader: HTMLElement | null  = document.querySelector('.loader');
-    loader!.style.display = 'none';
+    if(!loader){
+        throw new Error("Seems like an error from our side!");
+    }
+    loader.style.display = 'none';
 
     const page: HTMLElement | null  = document.querySelector('.info-page-elements');
-    if(page){
-        page.style.justifyContent = "flex-start";
+    if(!page){
+        throw new Error("Seems like an error from our side!");
     }
+    page.style.justifyContent = "flex-start";
     
 }
 

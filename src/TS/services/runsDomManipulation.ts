@@ -1,10 +1,10 @@
 import {changeDateFormat} from '../helpers/helpers';
+import { KartRun } from '../models/KartRun';
 
-// I will change the any type later
-export function addRunsToDom(res: any){
+export function addRunsToDom(res: KartRun){
     const runList: HTMLElement | null = document.querySelector('.run-list');
     
-    if(res?.trackName && res.driver && res.date){
+    if(runList && res?.trackName && res.driver && res.date){
         const listItem = document.createElement('li');
 
         const date = changeDateFormat(res.date);
@@ -23,17 +23,22 @@ export function addRunsToDom(res: any){
                 </div>
             </a>`
         
-        runList!.appendChild(listItem);
+        runList.appendChild(listItem);
     }
 }
 
 export function stopSpinner(){
     const loader: HTMLElement | null = document.querySelector('.loader');
-    loader!.style.display = 'none';
+    
+    if(!loader){
+        throw new Error("Seems like an error from our side!");
+    }
+    loader.style.display = 'none';
 
     const page: HTMLElement | null = document.querySelector('.info-page-elements');
-    if(page){
-        page.style.justifyContent = "flex-start";
+    if(!page){
+        throw new Error("Seems like an error from our side!");
     }
+    page.style.justifyContent = "flex-start";
     
 }

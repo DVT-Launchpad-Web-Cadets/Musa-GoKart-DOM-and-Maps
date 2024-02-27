@@ -1,18 +1,14 @@
 import * as L from "leaflet";
-
-// I will change the any type later
-export function drawLap(lapDetails: any){
-    // var container = L.DomUtil.get('map'); 
-    // if(container != null){ 
-    //     container._leaflet_id = null; 
-    // }
-
-    let map = L.map('map', {
+import '../../CSS/map.css'
+// import * as M from "../../../node_modules/leaflet.motion/dist/leaflet.motion.min.js";
+import { DataSet} from "../models/lapDetials";
+export function drawLap(lapDetails: DataSet[]){
+    const map = L.map('map', {
         center: fixCoordinates(lapDetails[0]['Lat.'], lapDetails[0]['Lon.']),
         zoom: 20
     });
 
-    let latlngs = [];
+    const latlngs: L.LatLngExpression[] = [];
     if(lapDetails?.[0]){
         for(let lap of lapDetails){
             if(lap['Lat.'] && lap['Lon.']){
@@ -25,23 +21,13 @@ export function drawLap(lapDetails: any){
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-   
-    let polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+   const lat = latlngs[0];
+    const polyline = L.polyline(latlngs, { className: "lap"}).addTo(map);
+
+    L.circle(lat, {radius: 3}).addTo(map);
     
     map.fitBounds(polyline.getBounds());
 
-    // TODO: Fix the motion of the lap
-    // L.motion.polyline(latlngs, {
-    //     color: "red"
-    // }, {
-    //     auto: true,
-    //     duration: 5000,
-    //     easing: L.Motion.Ease.easeInOutQuart
-    // }, {
-    //     removeOnEnd: true,
-    //     showMarker: true,
-    //     icon: L.divIcon({html: "<i class='fa fa-car fa-2x' aria-hidden='true'></i>", iconSize: L.point(27.5, 24)})
-    // }).addTo(map);
 }
 
 function fixCoordinates(lat: number, lon: number): L.LatLngExpression {
