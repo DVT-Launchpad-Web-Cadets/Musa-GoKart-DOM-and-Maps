@@ -37,8 +37,6 @@ export function drawLap(lapDetails: DataSetEntry[]) {
       clearInterval(move);
     }
   }, 100);
-
-  // map.remove()
 }
 
 function fixCoordinates(lat: number, lon: number): L.LatLngExpression {
