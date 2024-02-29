@@ -3,7 +3,7 @@ import { DataSetEntry } from '../models/lapDetials';
 
 export function drawLap(lapDetails: DataSetEntry[]) {
   const latlngs: L.LatLngExpression[] = [];
-  if (!(lapDetails?.[0] ?? lapDetails[0]['Lat.'] ?? lapDetails[0]['Lon.'])) {
+  if (!(lapDetails?.[0] || lapDetails[0]['Lat.'] || lapDetails[0]['Lon.'])) {
     throw Error('Error loading the map');
   }
 

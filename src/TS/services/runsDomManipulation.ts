@@ -35,9 +35,7 @@ export function stopSpinner() {
   }
   loader.style.display = 'none';
 
-  const page: HTMLElement | null = document.querySelector(
-    '.info-page-elements',
-  );
+  const page: HTMLElement | null = document.querySelector('.page-elements');
   if (!page) {
     throw new Error('Seems like an error from our side!');
   }

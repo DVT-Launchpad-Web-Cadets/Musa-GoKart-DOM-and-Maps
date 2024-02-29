@@ -76,7 +76,7 @@ export function getLapNumber() {
   const select: HTMLSelectElement | null = document.querySelector('select');
 
   if (select) {
-    let option = select.options[select.selectedIndex];
+    const option = select.options[select.selectedIndex];
     if (!isNaN(Number(option.value))) return Number(option.value);
   }
   throw new Error('Seems like an error from our side!');
