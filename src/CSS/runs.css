@@ -1,143 +1,142 @@
-.header{
-    height: 40px;
+.header {
+  height: 40px;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  padding: 8px 13px;
+  span {
+    color: #ed3240;
+  }
+}
+
+.page-elements {
+  margin: 20px 15px;
+  height: 100%;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.page-title {
+  padding: 0 13px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 0;
+  color: gray;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  div {
+    height: 4.5rem;
     width: 100%;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    padding: 8px 13px;
-    span{
-        color: #ed3240;
-    }
-
-}
-
-.page-elements{
-    margin: 20px 15px;
-    height: 100%;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.page-title{
-    padding: 0 13px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 0;
-    color: gray;
-}
-
-ul{
-    list-style: none;
+    background-color: lightgray;
     margin: 0;
-    padding: 0;
+    border-radius: 1rem;
+  }
+
+  .main-card-content {
+    margin: 0 8px;
+    width: fit-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
+    justify-content: space-around;
+  }
 
-    a{
-        text-decoration: none;
-        color: black;
+  .run-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .driver-name {
+    color: black;
+    height: fit-content;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .track-name {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    color: #ed3240;
+  }
+
+  .card-tail {
+    margin: 0 8px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+
+    span {
+      width: fit-content;
+      color: green;
+      font-size: 2rem;
     }
 
-    div{
-        height: 4.5rem;
-        width: 100%;
-        background-color: lightgray;
-        margin: 0;
-        border-radius: 1rem;
+    .run-date {
+      font-weight: bold;
+      font-size: 0.8rem;
     }
-
-    .main-card-content{
-        margin: 0 8px;
-        width: fit-content;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-
-    .run-item{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-    }
-
-    .driver-name{
-        color: black;
-        height: fit-content;
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 0;
-    }
-
-    .track-name{
-        margin: 0;
-        font-size: 0.8rem;
-        font-weight: lighter;
-        color: #ed3240;
-    }
-
-    .card-tail{
-        margin: 0 8px;
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: flex-end;
-
-        span{
-            width: fit-content;
-            color: green;
-            font-size: 2rem;
-        }
-
-        .run-date{
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-    }
-
-    
+  }
 }
 
 .loader {
-    border: 5px solid #a7a7a7; 
-    border-top: 5px solid #ed3240; 
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 2s linear infinite;
-    align-self: center;
-  }
-  
+  border: 5px solid #a7a7a7;
+  border-top: 5px solid #ed3240;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  align-self: center;
+}
+
 @keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
+@media only screen and (min-width: 500px) {
+  .run-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
 
-@media only screen and (min-width: 500px){
-    .run-list{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-    }
+  .main-card-content {
+    justify-content: flex-start;
+  }
 
-    .main-card-content{
-        justify-content: flex-start;
-    }
-
-    .run-item{
-        align-items: flex-start;
-    }
+  .run-item {
+    align-items: flex-start;
+  }
 }
 
-@media only screen and (min-width: 900px){
-    .run-list{
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+@media only screen and (min-width: 900px) {
+  .run-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

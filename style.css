@@ -1,11 +1,11 @@
-html{
+html {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-body{
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@ body{
   font-family: sans-serif;
 }
 
-.home-page{
+.home-page {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -21,7 +21,7 @@ body{
   height: 100%;
 }
 
-.logo-container{
+.logo-container {
   background-image: url('../../assets/images/Go-Kart_Logo.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -31,36 +31,35 @@ body{
   overflow: hidden;
 }
 
-.app-description{
+.app-description {
   width: 200px;
   text-align: center;
 }
 
-.highlighted-text{
+.highlighted-text {
   font-size: 1.5rem;
   font-weight: bold;
 
-  span{
-    color:#ed3240;
+  span {
+    color: #ed3240;
   }
 }
 
-.sub-text{
+.sub-text {
   font-size: 0.7rem;
   color: rgb(142, 142, 142);
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-.home-btn-container{
+.home-btn-container {
   width: 200px;
   height: fit-content;
-
 }
 
-#home-btn{
+#home-btn {
   height: 2rem;
   width: 200px;
   border-radius: 0.3rem;
@@ -74,35 +73,34 @@ a{
 }
 
 @media only screen and (min-width: 700px) {
-  .home-page{
+  .home-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     margin: 5rem;
     justify-content: center;
   }
-  .logo-container{
+  .logo-container {
     width: 400px;
     height: 400px;
   }
 
-  .app-description{
+  .app-description {
     width: 300px;
   }
 
-  .highlighted-text{
+  .highlighted-text {
     font-size: 2rem;
   }
 
-  .sub-text{
+  .sub-text {
     font-size: 1rem;
   }
 }
 
 @media only screen and (min-width: 1005px) {
-  .logo-container{
+  .logo-container {
     width: 600px;
     height: 600px;
   }
 }
-
