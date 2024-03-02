@@ -1,13 +1,14 @@
-import {
-  allRunsSubject$,
-  newFetchRequest$,
-} from './api_calls';
+import { allRunsSubject$, newFetchRequest$ } from './api_calls';
 import { addRunsToDom, stopSpinner } from './runsDomManipulation';
 
-
 allRunsSubject$.subscribe((res) => {
-  addRunsToDom(res);
-  stopSpinner();
+  try {
+    addRunsToDom(res);
+    localStorage.setItem('runDetails', JSON.stringify(res));
+    stopSpinner();
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 newFetchRequest$.next(null);
