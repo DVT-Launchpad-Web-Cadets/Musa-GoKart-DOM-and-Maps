@@ -1,29 +1,15 @@
 import { KartRun } from '../models/KartRun';
-import { getAllRunsCall, getFileName } from './api_calls';
+import { allRunsSubject$, newFetchRequest$ } from './api_calls';
 import { addRunsToDom, stopSpinner } from './runsDomManipulation';
 
-getFileName(
-  (res: string[]) => {
-    getAllRuns(res);
-  },
-  (err: Error) => {
-    console.error(err);
-  },
-);
-
-function getAllRuns(filename: string[]) {
-  if (filename?.[0]) {
-    getAllRunsCall(
-      filename[0],
-      (res: KartRun) => {
-        addRunsToDom(res);
-      },
-      (err: Error) => {
-        console.error(err);
-      },
-      () => {
-        stopSpinner();
-      },
-    );
+allRunsSubject$.subscribe((res: KartRun) => {
+  try {
+    addRunsToDom(res);
+    localStorage.setItem('runDetails', JSON.stringify(res));
+    stopSpinner();
+  } catch (error) {
+    console.error(error);
   }
-}
+});
+
+newFetchRequest$.next(null);
