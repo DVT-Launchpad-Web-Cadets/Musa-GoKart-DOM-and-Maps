@@ -1,85 +1,107 @@
 import { KartRun, LapSummary } from '../models/KartRun';
 
-export function addHeaderInfo(res: KartRun, changeCallBack: () => void) {
-  if (res?.lapSummaries?.[0] && res.driver) {
-    const name: HTMLElement | null = document.querySelector('#driver');
+export function addHeaderInfo(res: KartRun, resetCallBack: () => void) {
+  if (!(res?.driver && res.sessionName)) {
+    throw new Error('Error loading content');
+  }
 
-    if (!name) {
-      throw new Error('Seems like an error from our side!');
+  const name: HTMLElement | null = document.querySelector('#driver');
+
+  if (!name) {
+    throw new Error('Seems like an error from our side!');
+  }
+
+  name.innerText = `${res.driver} - ${res.sessionName}`;
+
+  const resetButton = document.querySelector('#reset-btn');
+  if (!resetButton) {
+    throw new Error('Seems like an error from our side!');
+  }
+
+  resetButton.addEventListener('click', resetCallBack);
+}
+
+export function addLapInfo(
+  lapSummaries: LapSummary[],
+  startCallback: () => void,
+) {
+  const startButton = document.querySelector('#start-btn');
+  if (!startButton) {
+    throw new Error('Seems like an error from our side!');
+  }
+  startButton.addEventListener('click', startCallback);
+
+  const lapList = document.querySelector('.laps');
+
+  if (!lapList) {
+    throw new Error('Seems like an error from our side!');
+  }
+
+  if (!lapSummaries?.[0]) {
+    throw new Error('Seems like an error from our side!');
+  }
+
+  let index = 0;
+  for (const lap of lapSummaries) {
+    const lapInfoItem = document.createElement('li');
+
+    const input = document.createElement('input');
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('id', `${index + 1}`);
+    input.setAttribute('value', `${index + 1}`);
+
+    const label = document.createElement('label');
+
+    let lapTime = 'DNF';
+    if (lap['time lap']) {
+      lapTime = new Date(lap['time lap']).toISOString().slice(11, 19);
     }
 
-    name.innerText = res.driver;
-    // Safety checks
-    const button = document.querySelector('button');
-    if (!button) {
-      throw new Error('Seems like an error from our side!');
+    let avg: string = 'N/A';
+    if (lap['Min Speed GPS'] && lap['Max Speed GPS']) {
+      avg = (lap['Min Speed GPS'] + lap['Max Speed GPS']) / 2 + 'km/h';
+      avg = `${parseInt(avg) / 10} km/h`;
     }
 
-    button.addEventListener('click', changeCallBack);
+    label.innerHTML = `
+      <p>${index}</p>
+      <span class="time">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          <p>${lapTime}</p>
+      </span>
+      <span class="speed">
+          <i class="fa fa-signal" aria-hidden="true"></i>
+          <p>${avg}</p>
+      </span>
+     `;
 
-    const select: HTMLElement | null = document.querySelector('select');
-    if (select) {
-      for (const lapIndex in res.lapSummaries) {
-        const option = document.createElement('option');
-        const valueAtr = document.createAttribute('value');
-        const lapNumber = Number(lapIndex) + 1;
-        valueAtr.value = `${lapNumber}`;
-        option.setAttributeNode(valueAtr);
-        option.innerText = `Lap ${lapNumber}`;
-        select.appendChild(option);
-      }
-    } else {
-      throw new Error('Seems like an error from our side!');
-    }
+    lapInfoItem.appendChild(input);
+    lapInfoItem.appendChild(label);
 
-    addLapInfo(res.lapSummaries[0]);
+    lapList.appendChild(lapInfoItem);
+    index++;
   }
 }
 
-export function addLapInfo(lapSummary: LapSummary) {
-  const lapInfo: HTMLElement | null = document.querySelector('.lap-info');
+export function getCheckedLaps() {
+  const lapList = document.querySelectorAll('input');
 
-  if (!lapInfo) {
-    throw new Error('Seems like an error from put side!');
+  if (!lapList) {
+    throw new Error('Seems like an error from our side!');
   }
 
-  let lapTime = 'DNF';
-  if (lapSummary['time lap']) {
-    lapTime = new Date(lapSummary['time lap']).toISOString().slice(11, 19);
+  const lapArray: number[] = [];
+  for (const lap of lapList) {
+    if (!lap.checked) {
+      continue;
+    }
+    const lapNumber = lap.getAttribute('value');
+    if (lapNumber && !isNaN(Number(lapNumber))) {
+      lapArray.push(Number(lapNumber));
+    }
   }
 
-  let avg: string = 'N/A';
-  if (lapSummary['Min Speed GPS'] && lapSummary['Max Speed GPS']) {
-    avg =
-      (lapSummary['Min Speed GPS'] + lapSummary['Max Speed GPS']) / 2 + 'km/h';
-    avg = `${parseInt(avg) / 10} km/h`;
-  }
-
-  lapInfo.innerHTML = `
-        <div class="lap-detail lap-time">
-        <span>
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            Lap time:
-        </span>
-        ${lapTime}
-        </div>
-        <div class="lap-detail avg-speed">
-            <span>
-                <i class="fa fa-signal" aria-hidden="true"></i>
-                Avg Speed:
-            </span>
-            ${avg}
-        </div>`;
-}
-
-export function getLapNumber() {
-  const select: HTMLSelectElement | null = document.querySelector('select');
-
-  if (select) {
-    const option = select.options[select.selectedIndex];
-    if (!isNaN(Number(option.value))) return Number(option.value);
-  }
-  throw new Error('Seems like an error from our side!');
+  return lapArray;
 }
 
 export function startSpinner() {
@@ -99,17 +121,17 @@ export function startSpinner() {
 }
 
 export function stopSpinner() {
-  const select = document.querySelector('select');
-  if (!select) {
+  const resetButton: HTMLElement | null = document.querySelector('#reset-btn');
+  if (!resetButton) {
     throw new Error('Seems like an error from our side!');
   }
-  select.style.display = 'block';
+  resetButton.style.display = 'block';
 
-  const button = document.querySelector('button');
-  if (!button) {
+  const startButton: HTMLElement | null = document.querySelector('#start-btn');
+  if (!startButton) {
     throw new Error('Seems like an error from our side!');
   }
-  button.style.display = 'block';
+  startButton.style.display = 'block';
 
   const loader: HTMLElement | null = document.querySelector('.loader');
   if (!loader) {

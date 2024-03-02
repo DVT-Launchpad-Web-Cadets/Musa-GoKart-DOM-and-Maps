@@ -1,47 +1,67 @@
 import * as L from 'leaflet';
-import { DataSetEntry } from '../models/lapDetials';
-
-export function drawLap(lapDetails: DataSetEntry[]) {
-  const latlngs: L.LatLngExpression[] = [];
-  if (!(lapDetails?.[0] || lapDetails[0]['Lat.'] || lapDetails[0]['Lon.'])) {
-    throw Error('Error loading the map');
+import { LapDetails } from '../models/lapDetials';
+export class MapUtility {
+  map;
+  constructor() {
+    this.map = L.map('map');
   }
 
-  const map = L.map('map', {
-    center: fixCoordinates(lapDetails[0]['Lat.'], lapDetails[0]['Lon.']),
-    zoom: 100,
-  });
+  addMap(mapCoordinates: { latitude: number; longitude: number }) {
+    this.map.setView(
+      this.fixCoordinates(mapCoordinates.latitude, mapCoordinates.longitude),
+      17,
+    );
 
-  for (const lap of lapDetails) {
-    if (lap['Lat.'] && lap['Lon.']) {
-      latlngs.push(fixCoordinates(lap['Lat.'], lap['Lon.']));
-    }
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
   }
 
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  const lat = latlngs[0];
-
-  const kart = L.circleMarker(lat, { radius: 3, className: 'kart' });
-
-  kart.addTo(map);
-
-  let index = 0;
-  const move = setInterval(() => {
-    kart.setLatLng(latlngs[index]);
-    index++;
-    if (index >= latlngs.length) {
-      clearInterval(move);
+  addMarkersToTrack(lapDetailsArray: LapDetails[]) {
+    if (!lapDetailsArray?.[0]) {
+      throw new Error('Error loading');
     }
-  }, 100);
-}
 
-function fixCoordinates(lat: number, lon: number): L.LatLngExpression {
-  lat = lat / 1000000;
-  lon = lon / 1000000;
+    const karts: L.CircleMarker[] = [];
 
-  return [lat, lon];
+    for (const lapDetails of lapDetailsArray) {
+      if (lapDetails?.dataSet?.[0]) {
+        const latlng = this.fixCoordinates(
+          lapDetails.dataSet[0]['Lat.'],
+          lapDetails.dataSet[0]['Lon.'],
+        );
+        const kart = L.circleMarker(latlng, { radius: 3, className: 'kart' });
+        karts.push(kart);
+        kart.addTo(this.map);
+      }
+    }
+
+    let index = 0;
+    const move = setInterval(() => {
+      for (let i = 0; i < lapDetailsArray.length; i++) {
+        karts[i].setLatLng(
+          this.fixCoordinates(
+            lapDetailsArray[i].dataSet[index]['Lat.'],
+            lapDetailsArray[i].dataSet[index]['Lon.'],
+          ),
+        );
+      }
+      index++;
+      if (index >= lapDetailsArray[0].dataSet.length) {
+        clearInterval(move);
+      }
+    }, 100);
+  }
+
+  removeLayers() {
+    this.map.remove();
+  }
+
+  fixCoordinates(lat: number, lon: number): L.LatLngExpression {
+    lat = lat / 1000000;
+    lon = lon / 1000000;
+
+    return [lat, lon];
+  }
 }
