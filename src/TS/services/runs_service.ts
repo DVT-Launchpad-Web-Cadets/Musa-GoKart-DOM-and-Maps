@@ -1,7 +1,8 @@
+import { KartRun } from '../models/KartRun';
 import { allRunsSubject$, newFetchRequest$ } from './api_calls';
 import { addRunsToDom, stopSpinner } from './runsDomManipulation';
 
-allRunsSubject$.subscribe((res) => {
+allRunsSubject$.subscribe((res: KartRun) => {
   try {
     addRunsToDom(res);
     localStorage.setItem('runDetails', JSON.stringify(res));
