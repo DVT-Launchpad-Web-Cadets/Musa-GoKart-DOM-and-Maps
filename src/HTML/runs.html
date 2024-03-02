@@ -1,20 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../CSS/runs.css" />
+    <!-- <link rel="stylesheet" href="../CSS/runs.css" /> -->
     <link rel="stylesheet" href="../../style.css" />
     <script src="../TS/services/runs_service.ts" type="module"></script>
     <script src="../TS/services/runsDomManipulation.ts" type="module"></script>
+    <link
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
-  <body>
-    <div class="header"><span>Zoom</span>Finder</div>
-    <p class="page-title">Runs</p>
-    <div class="page-elements">
-      <div class="loader"></div>
-      <ul class="run-list"></ul>
+  <body class="h-screen bg-primaryColor text-primaryTextColor font-sans">
+    <div
+      class="header shadow-2xl border-b-2 border-borderColor p-4 text-2xl font-bold"
+    >
+      <span class="text-accentColor">Zoom</span>Finder
+    </div>
+    <div class="h-screen py-8 flex flex-col items-center">
+      <p class="page-title text-3xl">Runs</p>
+      <div class="page-elements w-screen p-5">
+        <div class="loader"></div>
+        <ul class="run-list grid"></ul>
+      </div>
     </div>
   </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-screen">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,16 +13,22 @@
     <script src="./src/JS/home.js" defer></script>
     <title>Vite App</title>
   </head>
-  <body>
-    <div class="text-xl">
-      <div class="logo-container bg-logobackground"></div>
-      <div class="app-description">
-        <p class="text-red-500 text-4xl" class="highlighted-text">
-          Your go-to app for all your <span>karting</span> infomation.
+  <body class="h-screen bg-primaryColor text-primaryTextColor font-sans">
+    <div
+      class="flex flex-col h-screen justify-evenly items-center"
+      class="text-secondaryColor"
+    >
+      <div
+        class="logo-container rounded-2xl w-52 h-52 bg-cover bg-center bg-[url('./assets/images/kart-logo.jpeg')]"
+      ></div>
+      <div class="app-description w-52 flex flex-col items-center text-center">
+        <p class="text-2xl" class="highlighted-text">
+          Your go-to app for all your
+          <span class="text-accentColor">karting</span> infomation.
         </p>
-        <p class="sub-text">On your marks, get set...</p>
+        <p class="sub-text text-md">On your marks, get set...</p>
       </div>
-      <a href="./src/HTML/runs.html" class="bg-indigo-500">
+      <a href="./src/HTML/runs.html" class="bg-accentColor rounded p-2 w-32 flex justify-center gap-1">
         Get Started<i class="fa fa-flag-checkered" aria-hidden="true"></i>
       </a>
     </div>
