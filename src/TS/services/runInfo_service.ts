@@ -1,4 +1,4 @@
-import { MapStuff } from '../map/runInfoMap';
+import { MapUtility } from '../map/runInfoMap';
 import { KartRun } from '../models/KartRun';
 import {
   newFetchRequest$,
@@ -14,7 +14,12 @@ import {
   stopSpinner,
 } from './runInfoDomManipulation';
 import { LapDetails } from '../models/lapDetials';
-const map = new MapStuff();
+
+const map = new MapUtility();
+
+function resetLaps() {
+  map.removeLayers;
+}
 
 function startLaps() {
   startSpinner();
@@ -43,6 +48,7 @@ try {
     const runInfo: KartRun = JSON.parse(runInfoStorage);
 
     getCoordinatesSubject$.subscribe((coordinates) => {
+      addHeaderInfo(runInfo, resetLaps);
 
       map.addMap(coordinates);
       addLapInfo(runInfo.lapSummaries, startLaps);

@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
 import { LapDetails } from '../models/lapDetials';
-export class MapStuff {
+export class MapUtility {
   map;
   constructor() {
     this.map = L.map('map');
@@ -16,7 +16,6 @@ export class MapStuff {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
-
   }
 
   addMarkersToTrack(lapDetailsArray: LapDetails[]) {
@@ -53,6 +52,10 @@ export class MapStuff {
         clearInterval(move);
       }
     }, 100);
+  }
+
+  removeLayers() {
+    this.map.remove();
   }
 
   fixCoordinates(lat: number, lon: number): L.LatLngExpression {
