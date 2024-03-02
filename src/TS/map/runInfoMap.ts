@@ -17,7 +17,6 @@ export class MapStuff {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
-    // map.remove()
   }
 
   addMarkersToTrack(lapDetailsArray: LapDetails[]) {

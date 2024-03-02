@@ -16,8 +16,6 @@ import {
 import { LapDetails } from '../models/lapDetials';
 const map = new MapStuff();
 
-function resetLaps() {}
-
 function startLaps() {
   startSpinner();
   try {
@@ -45,7 +43,6 @@ try {
     const runInfo: KartRun = JSON.parse(runInfoStorage);
 
     getCoordinatesSubject$.subscribe((coordinates) => {
-      addHeaderInfo(runInfo, resetLaps);
 
       map.addMap(coordinates);
       addLapInfo(runInfo.lapSummaries, startLaps);
