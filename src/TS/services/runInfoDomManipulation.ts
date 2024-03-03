@@ -115,12 +115,27 @@ export function getCheckedLaps() {
   return lapArray;
 }
 
+export function clearCheckBoxes() {
+  const lapList = document.querySelectorAll('input');
+
+  if (!lapList) {
+    throw new Error('Seems like an error from our side!');
+  }
+
+  for (const lap of lapList) {
+    if (lap.checked) {
+      lap.checked = false;
+    }
+  }
+}
+
 export function startSpinner() {
   const loader: HTMLElement | null = document.querySelector('.loader');
   if (!loader) {
     throw new Error('Seems like an error from our side!');
   }
   loader.style.display = 'block';
+  loader.style.zIndex = '1';
 
   const page: HTMLElement | null = document.querySelector(
     '.info-page-elements',
