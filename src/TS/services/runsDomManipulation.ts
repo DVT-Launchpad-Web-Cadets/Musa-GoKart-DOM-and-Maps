@@ -8,18 +8,16 @@ export function addRunsToDom(res: KartRun) {
     const listItem = document.createElement('li');
 
     const date = changeDateFormat(res.date);
+    listItem.className =
+      'bg-secondary-color border border-border-color p-4 h-56 rounded-md sm:w-3/6 lg:w-2/6';
 
     listItem.innerHTML = `
-            <a href="runInfo.html">
-                <div class="run-item">
-                    <div class="main-card-content">
-                        <p class="driver-name"> ${res.driver} </p>
-                        <p class="track-name"> ${res.trackName} • ${res.lapSummaries.length} laps </p>
-                    </div>
-                    <div class="card-tail">
-                        <p class="run-date">${date}</p>
-                        <span>•</span>
-                    </div>
+            <a href="runInfo.html" class="h-full block">
+                <div class="run-item h-full flex flex-col justify-evenly">
+                    <p class="driver-name text-header-color self-center text-lg font-bold"> ${res.driver} • ${res.sessionName} </p>
+                    <p class="track-name"> <i class="fa fa-map-marker text-accent-color" aria-hidden="true"></i> ${res.trackName} • ${res.lapSummaries.length} laps </p>
+                    <p class="run-date"><i class="fa fa-calendar text-accent-color" aria-hidden="true"></i> ${date}</p>
+                    <p class="run-date"><i class="fa fa-clock-o  text-accent-color" aria-hidden="true"></i> ${res.time}</p>
                 </div>
             </a>`;
 

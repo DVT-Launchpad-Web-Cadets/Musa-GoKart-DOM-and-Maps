@@ -9,6 +9,7 @@ import {
 import {
   addHeaderInfo,
   addLapInfo,
+  clearCheckBoxes,
   getCheckedLaps,
   startSpinner,
   stopSpinner,
@@ -16,9 +17,12 @@ import {
 import { LapDetails } from '../models/lapDetials';
 
 const map = new MapUtility();
+let coords: {latitude: number, longitude:number};
 
 function resetLaps() {
-  map.removeLayers;
+  map.removeLayers();
+  map.addMap(coords);
+  clearCheckBoxes()
 }
 
 function startLaps() {
@@ -29,7 +33,7 @@ function startLaps() {
 
     finalResult$.subscribe((res) => {
       lapDetailArray.push(res.responseJson);
-      map.addMarkersToTrack(lapDetailArray);
+      map.addMarkersToTrack(lapDetailArray, lapArray);
       stopSpinner();
     });
 
@@ -49,7 +53,7 @@ try {
 
     getCoordinatesSubject$.subscribe((coordinates) => {
       addHeaderInfo(runInfo, resetLaps);
-
+      coords = coordinates;
       map.addMap(coordinates);
       addLapInfo(runInfo.lapSummaries, startLaps);
       stopSpinner();

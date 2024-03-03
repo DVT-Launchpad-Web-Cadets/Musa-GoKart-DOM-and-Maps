@@ -11,7 +11,7 @@ export function addHeaderInfo(res: KartRun, resetCallBack: () => void) {
     throw new Error('Seems like an error from our side!');
   }
 
-  name.innerText = `${res.driver} - ${res.sessionName}`;
+  name.innerText = `${res.driver} • ${res.sessionName}`;
 
   const resetButton = document.querySelector('#reset-btn');
   if (!resetButton) {
@@ -44,13 +44,18 @@ export function addLapInfo(
   let index = 0;
   for (const lap of lapSummaries) {
     const lapInfoItem = document.createElement('li');
+    lapInfoItem.className =
+      'w-full border-b border-border-color flex items-center py-2';
 
     const input = document.createElement('input');
+    input.className = 'w-1/6 h-4 selt-center';
+
     input.setAttribute('type', 'checkbox');
     input.setAttribute('id', `${index + 1}`);
     input.setAttribute('value', `${index + 1}`);
 
     const label = document.createElement('label');
+    label.className = 'w-5/6 flex justify-start gap-10';
 
     let lapTime = 'DNF';
     if (lap['time lap']) {
@@ -64,13 +69,13 @@ export function addLapInfo(
     }
 
     label.innerHTML = `
-      <p>${index}</p>
-      <span class="time">
+      <p class="w-5" >${index + 1}</p>
+      <span class="time w-24 flex items-center gap-2">
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           <p>${lapTime}</p>
       </span>
-      <span class="speed">
-          <i class="fa fa-signal" aria-hidden="true"></i>
+      <span class="speed flex items-center gap-2">
+          <i class="fa fa-signal h-fit" aria-hidden="true"></i>
           <p>${avg}</p>
       </span>
      `;
@@ -104,12 +109,27 @@ export function getCheckedLaps() {
   return lapArray;
 }
 
+export function clearCheckBoxes() {
+  const lapList = document.querySelectorAll('input');
+
+  if (!lapList) {
+    throw new Error('Seems like an error from our side!');
+  }
+
+  for (const lap of lapList) {
+    if (lap.checked) {
+      lap.checked = false;
+    }
+  }
+}
+
 export function startSpinner() {
   const loader: HTMLElement | null = document.querySelector('.loader');
   if (!loader) {
     throw new Error('Seems like an error from our side!');
   }
   loader.style.display = 'block';
+  loader.style.zIndex = '1';
 
   const page: HTMLElement | null = document.querySelector(
     '.info-page-elements',
