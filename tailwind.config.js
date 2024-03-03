@@ -3,13 +3,13 @@ export default {
   content: ['./index.html', './src/**/*.{html,ts}'],
   theme: {
     colors: {
-      primaryColor: '#10172a',
-      secondaryColor: '#1e293b',
-      accentColor: '#ed3240',
-      primaryTextColor: 'whitesmoke',
-      borderColor: '#374151',
-      headerColor: '#73c2e9',
-    }
+      'primary-color': '#10172a',
+      'secondary-color': '#1e293b',
+      'accent-color': '#ed3240',
+      'text-color': 'whitesmoke',
+      'border-color': '#374151',
+      'header-color': '#73c2e9',
+    },
   },
   plugins: [],
 };

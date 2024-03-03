@@ -47,7 +47,7 @@ export function addLapInfo(
     const lapInfoItem = document.createElement('li');
     lapInfoItem.setAttribute(
       'class',
-      'w-full border-b border-borderColor flex items-center py-2',
+      'w-full border-b border-border-color flex items-center py-2',
     );
     const input = document.createElement('input');
     input.setAttribute(
