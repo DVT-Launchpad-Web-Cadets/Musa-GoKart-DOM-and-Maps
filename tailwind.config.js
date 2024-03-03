@@ -7,7 +7,7 @@ export default {
       secondaryColor: '#1e293b',
       accentColor: '#ed3240',
       primaryTextColor: 'whitesmoke',
-      borderColor: '#1f2739',
+      borderColor: '#374151',
       headerColor: '#73c2e9'
     }
   },

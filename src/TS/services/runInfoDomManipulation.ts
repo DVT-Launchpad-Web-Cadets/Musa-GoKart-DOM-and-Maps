@@ -1,3 +1,4 @@
+import { generateRandomColors } from '../helpers/helpers';
 import { KartRun, LapSummary } from '../models/KartRun';
 
 export function addHeaderInfo(res: KartRun, resetCallBack: () => void) {
@@ -11,7 +12,7 @@ export function addHeaderInfo(res: KartRun, resetCallBack: () => void) {
     throw new Error('Seems like an error from our side!');
   }
 
-  name.innerText = `${res.driver} - ${res.sessionName}`;
+  name.innerText = `${res.driver} • ${res.sessionName}`;
 
   const resetButton = document.querySelector('#reset-btn');
   if (!resetButton) {
@@ -41,16 +42,26 @@ export function addLapInfo(
     throw new Error('Seems like an error from our side!');
   }
 
+  const colors = generateRandomColors(lapSummaries.length);
+
   let index = 0;
   for (const lap of lapSummaries) {
     const lapInfoItem = document.createElement('li');
-
+    lapInfoItem.setAttribute(
+      'class',
+      'w-full border-b border-borderColor flex items-center py-2',
+    );
     const input = document.createElement('input');
+    input.setAttribute(
+      'class',
+      `w-1/6 h-4 selt-center text-[${colors[index]}] focus:[${colors[index]}]`,
+    );
     input.setAttribute('type', 'checkbox');
     input.setAttribute('id', `${index + 1}`);
     input.setAttribute('value', `${index + 1}`);
 
     const label = document.createElement('label');
+    label.setAttribute('class', 'w-5/6 flex justify-start gap-10');
 
     let lapTime = 'DNF';
     if (lap['time lap']) {
@@ -64,13 +75,13 @@ export function addLapInfo(
     }
 
     label.innerHTML = `
-      <p>${index}</p>
-      <span class="time">
+      <p class="w-5" >${index + 1}</p>
+      <span class="time w-24 flex items-center gap-2">
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           <p>${lapTime}</p>
       </span>
-      <span class="speed">
-          <i class="fa fa-signal" aria-hidden="true"></i>
+      <span class="speed flex items-center gap-2">
+          <i class="fa fa-signal h-fit" aria-hidden="true"></i>
           <p>${avg}</p>
       </span>
      `;

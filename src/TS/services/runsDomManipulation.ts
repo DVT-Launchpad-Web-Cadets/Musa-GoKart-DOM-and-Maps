@@ -10,7 +10,7 @@ export function addRunsToDom(res: KartRun) {
     const date = changeDateFormat(res.date);
     listItem.setAttribute(
       'class',
-      'bg-secondaryColor border border-borderColor  p-4 h-56 rounded-md',
+      'bg-secondaryColor border border-borderColor p-4 h-56 rounded-md',
     );
 
     listItem.innerHTML = `
