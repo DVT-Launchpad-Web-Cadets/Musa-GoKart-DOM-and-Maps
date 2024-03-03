@@ -1,4 +1,4 @@
-import API_BASE_URL from '../api/api_Base_Url';
+import API_BASE_URL from './apiBaseURL';
 import { KartRun } from '../models/KartRun';
 import { LapDetails } from '../models/lapDetials';
 import {
