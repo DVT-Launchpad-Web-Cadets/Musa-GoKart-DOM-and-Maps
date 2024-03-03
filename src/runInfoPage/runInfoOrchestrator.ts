@@ -4,7 +4,8 @@ import {
   newFetchRequest$,
   getCoordinatesSubject$,
   lapFetchRequest$,
-  finalResult$,
+  // finalResult$,
+  lapMataData$,
 } from '../api/apiCalls';
 import {
   addHeaderInfo,
@@ -17,12 +18,12 @@ import {
 import { LapDetails } from '../models/lapDetials';
 
 const map = new MapUtility();
-let coords: {latitude: number, longitude:number};
+let coords: { latitude: number; longitude: number };
 
 function resetLaps() {
   map.removeLayers();
   map.addMap(coords);
-  clearCheckBoxes()
+  clearCheckBoxes();
 }
 
 function startLaps() {
@@ -31,13 +32,28 @@ function startLaps() {
     const lapArray = getCheckedLaps();
     const lapDetailArray: LapDetails[] = [];
 
-    finalResult$.subscribe((res) => {
-      lapDetailArray.push(res.responseJson);
-      map.addMarkersToTrack(lapDetailArray, lapArray);
-      stopSpinner();
-    });
+    lapMataData$
+      .subscribe({
+        next: (res) => {
+          lapDetailArray.push(res.responseJson);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete() {
+          try {
+            map.addMarkersToTrack(lapDetailArray, lapArray);
+          } catch (err) {
+            console.error(err);
+          }
+        },
+      })
+      .add(() => {
+        stopSpinner();
+      });
 
     lapFetchRequest$.next(lapArray);
+    lapFetchRequest$.complete();
   } catch (error) {
     console.error(error);
   }

@@ -116,5 +116,3 @@ export const lapMataData$ = lapFetchRequest$.pipe(
     ),
   ),
 );
-
-export const finalResult$ = lapMataData$.pipe(map((res) => res));
