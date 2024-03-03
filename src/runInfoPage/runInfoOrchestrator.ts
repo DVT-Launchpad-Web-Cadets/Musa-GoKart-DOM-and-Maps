@@ -1,11 +1,11 @@
-import { MapUtility } from '../map/runInfoMap';
+import { MapUtility } from './runInfoMap';
 import { KartRun } from '../models/KartRun';
 import {
   newFetchRequest$,
   getCoordinatesSubject$,
   lapFetchRequest$,
   finalResult$,
-} from './api_calls';
+} from '../api/apiCalls';
 import {
   addHeaderInfo,
   addLapInfo,
@@ -47,7 +47,7 @@ try {
   const runInfoStorage = localStorage.getItem('runDetails');
 
   if (!runInfoStorage) {
-    window.location.assign('./runs.html');
+    window.location.assign('../runsPage/runs.html');
   } else {
     const runInfo: KartRun = JSON.parse(runInfoStorage);
 

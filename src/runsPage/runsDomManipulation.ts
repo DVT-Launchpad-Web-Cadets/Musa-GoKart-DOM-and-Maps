@@ -1,4 +1,4 @@
-import { changeDateFormat } from '../helpers/helpers';
+import { changeDateFormat } from '../utilities/utilities';
 import { KartRun } from '../models/KartRun';
 
 export function addRunsToDom(res: KartRun) {
@@ -12,7 +12,7 @@ export function addRunsToDom(res: KartRun) {
       'bg-secondary-color border border-border-color p-4 h-56 rounded-md sm:w-3/6 lg:w-2/6';
 
     listItem.innerHTML = `
-            <a href="runInfo.html" class="h-full block">
+            <a href="../runInfoPage/index.html" class="h-full block">
                 <div class="run-item h-full flex flex-col justify-evenly">
                     <p class="driver-name text-header-color self-center text-lg font-bold"> ${res.driver} • ${res.sessionName} </p>
                     <p class="track-name"> <i class="fa fa-map-marker text-accent-color" aria-hidden="true"></i> ${res.trackName} • ${res.lapSummaries.length} laps </p>
