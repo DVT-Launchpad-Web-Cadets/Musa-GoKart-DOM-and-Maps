@@ -1,4 +1,3 @@
-import { generateRandomColors } from '../helpers/helpers';
 import { KartRun, LapSummary } from '../models/KartRun';
 
 export function addHeaderInfo(res: KartRun, resetCallBack: () => void) {
@@ -42,7 +41,6 @@ export function addLapInfo(
     throw new Error('Seems like an error from our side!');
   }
 
-  const colors = generateRandomColors(lapSummaries.length);
 
   let index = 0;
   for (const lap of lapSummaries) {
@@ -54,7 +52,7 @@ export function addLapInfo(
     const input = document.createElement('input');
     input.setAttribute(
       'class',
-      `w-1/6 h-4 selt-center text-[${colors[index]}] focus:[${colors[index]}]`,
+      'w-1/6 h-4 selt-center',
     );
     input.setAttribute('type', 'checkbox');
     input.setAttribute('id', `${index + 1}`);

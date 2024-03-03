@@ -35,13 +35,3 @@ export function changeDateFormat(dateString: string) {
   }
   return 'N/A';
 }
-
-export function generateRandomColors(numberOfLaps: number) {
-  const colors = [];
-
-  for (let i = 0; i < numberOfLaps; i++) {
-    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    colors.push(randomColor);
-  }
-  return colors
-}
