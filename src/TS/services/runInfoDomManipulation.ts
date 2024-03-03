@@ -41,25 +41,21 @@ export function addLapInfo(
     throw new Error('Seems like an error from our side!');
   }
 
-
   let index = 0;
   for (const lap of lapSummaries) {
     const lapInfoItem = document.createElement('li');
-    lapInfoItem.setAttribute(
-      'class',
-      'w-full border-b border-border-color flex items-center py-2',
-    );
+    lapInfoItem.className =
+      'w-full border-b border-border-color flex items-center py-2';
+
     const input = document.createElement('input');
-    input.setAttribute(
-      'class',
-      'w-1/6 h-4 selt-center',
-    );
+    input.className = 'w-1/6 h-4 selt-center';
+
     input.setAttribute('type', 'checkbox');
     input.setAttribute('id', `${index + 1}`);
     input.setAttribute('value', `${index + 1}`);
 
     const label = document.createElement('label');
-    label.setAttribute('class', 'w-5/6 flex justify-start gap-10');
+    label.className = 'w-5/6 flex justify-start gap-10';
 
     let lapTime = 'DNF';
     if (lap['time lap']) {

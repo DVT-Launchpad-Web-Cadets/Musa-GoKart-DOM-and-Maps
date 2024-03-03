@@ -8,10 +8,8 @@ export function addRunsToDom(res: KartRun) {
     const listItem = document.createElement('li');
 
     const date = changeDateFormat(res.date);
-    listItem.setAttribute(
-      'class',
-      'bg-secondary-color border border-border-color p-4 h-56 rounded-md sm:w-3/6 lg:w-2/6',
-    );
+    listItem.className =
+      'bg-secondary-color border border-border-color p-4 h-56 rounded-md sm:w-3/6 lg:w-2/6';
 
     listItem.innerHTML = `
             <a href="runInfo.html" class="h-full block">
